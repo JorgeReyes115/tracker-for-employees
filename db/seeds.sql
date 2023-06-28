@@ -1,4 +1,4 @@
-USE employee_db
+USE employee_db;
 
 
 INSERT INTO deparment (name)
@@ -14,7 +14,7 @@ VALUES
  ("Software Engineer", 115000 ,2),
  ("Sales Manager",85000 ,3),
  ("Accountant", 90000,4),
- ("Lawyer", 100000,5);
+ ("Lawyer", 100000,4);
 
  INSERT INTO employee (first_name, last_name, role_id, manager_id)
  VALUES
