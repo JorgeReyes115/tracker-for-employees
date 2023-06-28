@@ -78,37 +78,38 @@ function departments() {
 function Roles() {
     console.log("fetching Roles\n");
     db.query(
-        "SELECT roles.id, roles.title, roles.salary, deparment.deparment From roles LEFT JOIN deparment ON deparment.ID = roles.deparment_id", function (err, res) {
+        "SELECT roles.id, roles.title, roles.salary, deparment.name From roles LEFT JOIN deparment ON deparment.ID = roles.deparment_id", function (err, res) {
             if (err) {console.log(err)
             };
     
-            cTable(res);
+            console.table(res);
+            init();
         });
 
-            init();
+            
 };
 
 
 function Employees() {
     console.log("fetching employee\n");
     db.query(
-        "SELECT employee.id, employee.first_name, employee.last_name, roles.title, deparment.deparment, roles.salary From employee Left JOIN employee on manager.id =  employee.manager_id LEFT JOIN roles On roles.id = employee.roles_id", function (err,res) {
+        "SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary From employee Left JOIN employee AS E on employee.id =  E.manager_id LEFT JOIN roles On roles.id = employee.role_id", function (err,res) {
             if (err) {console.log(err)
             };
             console.table(res);
-        });
-
             init();
+
+        });
 
 };
 
 function addDepartments() {
     inquirer
-    .prompt({
+    .prompt([{
         type: "input",
         name: "newDepartment",
         message: "name new department"
-    })
+    }])
     .then ((answers) => {
         db.query(
             "INSERT INTO deparments (name) VALUES(?)",
@@ -118,15 +119,16 @@ function addDepartments() {
                 if (err) {console.log(err)
                 };
                 console.table(res);
+                init();
             });
 
-                init();
+                
     });
 };
  
 function addRole() {
     inquirer
-    .prompt({
+    .prompt([{
         type: "input",
         name: "roleName",
         message: "name new role"
@@ -135,7 +137,7 @@ function addRole() {
         type: "input",
         name: "roleSalary",
         message: "add new salary"
-    })
+    }])
     .then ((answers) => {
         db.query(
             "INSERT INTO roles (title, salary) VALUES(?,?)",
@@ -145,14 +147,15 @@ function addRole() {
                 if (err) {console.log(err)
                 };
                 console.table(results);
-            });
                 init();
+            });
+                
     });
 };
 
 function addEmployee() {
     inquirer
-    .prompt(
+    .prompt([
         {
             type: "input",
             name: "firstName",
@@ -172,7 +175,7 @@ function addEmployee() {
             type: "input",
             name: "manager",
             message: "add employee manager adn manager id"
-        })
+        }])
         .then ((answers) => {
             db.query(
                 "INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES(?,?,?,?)",
@@ -183,19 +186,20 @@ function addEmployee() {
                     };
                 
                     console.table(res);
-                });
                     init();
+                });
+                    
         });
 
 };
 
 function deleteDepartment() {
     inquirer
-    .prompt({
+    .prompt([{
         type: "input",
         name: "deleteDepartment",
         message: "what department do you want to delete"
-    })
+    }])
     .then ((answers) => {
         db.query(
             "DELETE FROM department id = ?",
@@ -205,8 +209,9 @@ function deleteDepartment() {
                 if (err) {console.log(err)
                 };
                 console.table(res);
-            });
                 init();
+            });
+                
     });
 
 };
