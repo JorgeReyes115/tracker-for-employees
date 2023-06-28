@@ -1,7 +1,8 @@
 const mysql = require("mysql2");
 const inquirer = require("inquirer");
+const cTable = require("console.table");
 
-const connection = mysql.createConnection ({
+const db = mysql.createConnection ({
     host: "localhost",
     user: "root",
     password: "2045",
@@ -9,7 +10,7 @@ const connection = mysql.createConnection ({
 
 });
 
-connection.connect(function(err){
+db.connect(function(err){
     if (err) throw err;
     console.log("Connected to database");
 
@@ -33,7 +34,7 @@ function init(){
             "Quit"],
     })
     .then((options) => {
-        switch (options) {
+        switch (options.options) {
             case "View Departments":
                 departments();
                 break;
