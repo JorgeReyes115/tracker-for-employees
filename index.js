@@ -78,9 +78,13 @@ function departments() {
 function Roles() {
     console.log("fetching Roles\n");
     db.query(
-        "SELECT role.id, roles.title, roles.salary, deparment.deparment From roles LEFT JOIN deparment ON deparment.ID = roles.deparment_id", function (err, res) {
-            if (err) {console.log(err)};})
+        "SELECT roles.id, roles.title, roles.salary, deparment.deparment From roles LEFT JOIN deparment ON deparment.ID = roles.deparment_id", function (err, res) {
+            if (err) {console.log(err)
+            };
+    
             cTable(res);
+        });
+
             init();
 };
 
@@ -89,8 +93,10 @@ function Employees() {
     console.log("fetching employee\n");
     db.query(
         "SELECT employee.id, employee.first_name, employee.last_name, roles.title, deparment.deparment, roles.salary From employee Left JOIN employee on manager.id =  employee.manager_id LEFT JOIN roles On roles.id = employee.roles_id", function (err,res) {
-            if (err) {console.log(err)};})
+            if (err) {console.log(err)
+            };
             console.table(res);
+        });
 
             init();
 
@@ -109,11 +115,14 @@ function addDepartments() {
             [answers.name],
             console.log("department added"),
             function (err, res) {
-                if (err) {console.log(err)};})
+                if (err) {console.log(err)
+                };
                 console.table(res);
+            });
+
                 init();
-    })
-}
+    });
+};
  
 function addRole() {
     inquirer
@@ -133,11 +142,13 @@ function addRole() {
             [answers.title, answers.salary],
             console.log("role added"),
             function (err, res) {
-                if (err) {console.log(err)};})
+                if (err) {console.log(err)
+                };
                 console.table(results);
+            });
                 init();
-    })
-}
+    });
+};
 
 function addEmployee() {
     inquirer
@@ -168,12 +179,15 @@ function addEmployee() {
                 [answers.firstName, answers.lastName, answers.Roles, answers.manager],
                 console.log("employee added"),
                 function (err, res) {
-                    if (err) {console.log(err)};})
+                    if (err) {console.log(err)
+                    };
+                
                     console.table(res);
+                });
                     init();
-        })
+        });
 
-}
+};
 
 function deleteDepartment() {
     inquirer
@@ -188,9 +202,11 @@ function deleteDepartment() {
             [answers.deleteDepartment],
             console.log("department deleted"),
             function (err, res) {
-                if (err) {console.log(err)};})
+                if (err) {console.log(err)
+                };
                 console.table(res);
+            });
                 init();
-    })
+    });
 
-}
+};
