@@ -4,7 +4,7 @@ const inquirer = require("inquirer");
 const connection = mysql.createConnection ({
     host: "localhost",
     user: "root",
-    password: "ez123",
+    password: "2045",
     database: "employee_db",
 
 });
