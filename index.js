@@ -65,18 +65,22 @@ function init(){
 
 function departments() {
     console.log("fetching deparments\n")
-    db.query ("SELECT deparment.ID AS id, department.name as Deparment from Deparments", function (err, res) {
-        if (err) {console.log(err)};});
-    cTable(results);
+    db.query ("SELECT deparment.id AS id, deparment.name as Deparment from deparment", function (err, res) {
+        if (err) {console.log(err)
+        };
+
+        console.table(res);
+    });
+
     init();
 };
 
 function Roles() {
     console.log("fetching Roles\n");
     db.query(
-        "SELECT role.id, roles.title, roles.salary, department.department From roles LEFT JOIN deparment ON deparment.ID = roles.department_id", function (err, res) {
+        "SELECT role.id, roles.title, roles.salary, deparment.deparment From roles LEFT JOIN deparment ON deparment.ID = roles.deparment_id", function (err, res) {
             if (err) {console.log(err)};})
-            cTable(results);
+            cTable(res);
             init();
 };
 
@@ -84,9 +88,10 @@ function Roles() {
 function Employees() {
     console.log("fetching employee\n");
     db.query(
-        "SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.department, roles.salary From employee Left JOIN employee on manager.id =  employee.manager_id LEFT JOIN roles On roles.id = employee.roles_id", function (err,res) {
+        "SELECT employee.id, employee.first_name, employee.last_name, roles.title, deparment.deparment, roles.salary From employee Left JOIN employee on manager.id =  employee.manager_id LEFT JOIN roles On roles.id = employee.roles_id", function (err,res) {
             if (err) {console.log(err)};})
-            cTable(results);
+            console.table(res);
+
             init();
 
 };
@@ -105,7 +110,7 @@ function addDepartments() {
             console.log("department added"),
             function (err, res) {
                 if (err) {console.log(err)};})
-                cTable(results);
+                console.table(res);
                 init();
     })
 }
@@ -129,7 +134,7 @@ function addRole() {
             console.log("role added"),
             function (err, res) {
                 if (err) {console.log(err)};})
-                cTable(results);
+                console.table(results);
                 init();
     })
 }
@@ -164,7 +169,7 @@ function addEmployee() {
                 console.log("employee added"),
                 function (err, res) {
                     if (err) {console.log(err)};})
-                    cTable(results);
+                    console.table(res);
                     init();
         })
 
@@ -184,7 +189,7 @@ function deleteDepartment() {
             console.log("department deleted"),
             function (err, res) {
                 if (err) {console.log(err)};})
-                cTable(results);
+                console.table(res);
                 init();
     })
 
